@@ -202,15 +202,6 @@ print(letters)
 ```
 
 
-###### len() 
-The size of the list can be known by calling ``len`` similar to strings.
-```python
-l = [1,2,3]
-print(len(l))
-```
-
-
-
 ## Example Scripts
 [Chapter 3.1: Numbers](/assignments/bigdata/python/ch1-3/ch3-1.py)
 
