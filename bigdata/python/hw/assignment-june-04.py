@@ -3,6 +3,11 @@ import numpy as nmp
 import math
 import os
 from numpy.random import default_rng
+from pandas.io import sql
+import sqlalchemy as sqlalch
+from sqlalchemy import create_engine
+from sqlalchemy import text
+
 
 #data_frame = pd.read_csv("../employee.csv")
 #print(data_frame.head())
@@ -85,3 +90,18 @@ print(merged_df)
 
 melted_df = pd.melt(merged_df,('id','first_name', 'last_name'),['age','total_compensation'])
 print(melted_df)
+
+
+##CONNECT TO SQL
+engine = create_engine('mysql+pymysql://root:password123!@localhost:3306/test', echo=True)
+def check_for_db():
+    with engine.connect() as conn:
+        melted_df.to_sql(name='imported',con=conn, if_exists='replace')
+        print(conn.closed)
+
+check_for_db()
+
+
+
+
+
