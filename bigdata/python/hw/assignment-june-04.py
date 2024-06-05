@@ -98,7 +98,7 @@ def check_for_db():
     with engine.connect() as conn:
         melted_df.to_sql(name='imported',con=conn, if_exists='replace')
         print(conn.closed)
-
+        conn.close()
 check_for_db()
 
 
