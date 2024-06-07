@@ -1,0 +1,8 @@
+/python/.obsidian
+/python/testing
+/python/pres/.ipynb_checkpoints
+.vscode
+.bsp
+.metals
+.scala-build
+.DS_Store
