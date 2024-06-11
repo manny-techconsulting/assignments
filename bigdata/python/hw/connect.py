@@ -1,16 +1,18 @@
 import pandas as pd
-import sqlalchemy as sql
 from sqlalchemy import create_engine
-from sqlalchemy import text
+import os
 
-print(sql.__version__)
-engine = create_engine('mysql+pymysql://root:password123!@localhost:3306', echo=True)
+def getfileName(filename):
+    f = os.path.join(os.path.dirname(__file__), filename)
+    return f
 
-def check_for_db():
+def connect(filename):
+    engine = create_engine('postgresql+psycopg2://consultants:WelcomeItc%402022@ec2-3-9-191-104.eu-west-2.compute.amazonaws.com/testdb')
+    
     with engine.connect() as conn:
-        res = conn.execute(text("CREATE DATABASE IF NOT EXISTS test;"))
-        print(res.closed)
+        employee_df = pd.read_csv(getfileName(filename))
+        employee_df.to_sql(name='employees',  con=conn, if_exists='replace')
+        print(conn.closed)
 
-check_for_db()
-
-
+if __name__ == '__main__':
+    connect(r'employee_test_data.csv')
