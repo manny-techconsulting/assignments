@@ -1,0 +1,24 @@
+CREATE EXTERNAL TABLE sample_sales (
+    id INT,
+    product STRING,
+    amount FLOAT
+)
+PARTITIONED BY (year INT, month INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+LOAD DATA INPATH '/tmp/catbd125/emanuel/products/data.csv' INTO TABLE sample_sales;
+
+select * from emanuel.sample_sales;
+
+
+SHOW CREATE TABLE emanuel.sample_sales;
+SHOW PARTITIONS emanuel.sample_sales PARTITION(year=2024, month=1);
+ALTER TABLE emanuel.sample_sales ADD PARTITION (year=2024, month=1) LOCATION '/tmp/catbd125/emanuel/products/year2024/month1';
+ALTER TABLE emanuel.sample_sales ADD PARTITION (year=2024, month=2) LOCATION '/tmp/catbd125/emanuel/products/year2024/month2';
+ALTER TABLE emanuel.sample_sales ADD PARTITION (year=2023, month=1) LOCATION '/tmp/catbd125/emanuel/products/year2023/month1';
+ALTER TABLE emanuel.sample_sales ADD PARTITION (year=2023, month=2) LOCATION '/tmp/catbd125/emanuel/products/year2023/month2';
+ALTER TABLE emanuel.sample_sales ADD PARTITION (year=2023, month=3) LOCATION '/tmp/catbd125/emanuel/products/year2023/month3';
+
+Msck repair table emanuel.sample_sales;
