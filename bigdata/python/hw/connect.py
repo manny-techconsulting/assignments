@@ -11,8 +11,8 @@ def connect(filename):
     
     with engine.connect() as conn:
         rapper_df = pd.read_csv(getfileName(filename))
-        rapper_df.to_sql(name='rap_lyrics',  con=conn, if_exists='replace')
+        rapper_df.to_sql(name='smoking',  con=conn, if_exists='replace')
         print(conn.closed)
 
 if __name__ == '__main__':
-    connect(r'raplyrics.csv')
+    connect(r'smoking.csv')
