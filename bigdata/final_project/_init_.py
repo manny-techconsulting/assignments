@@ -1,8 +1,13 @@
 from flask import Flask, jsonify
 import csv
-import helpers
 import api_logger
 app = Flask(__name__)
+
+import os
+def getfileName(filename):
+    file = os.path.join(os.path.dirname(__file__), filename)
+    print(file)
+    return file
 
 @app.route('/api/data',methods=['GET'])
 def getSmokingData():
@@ -11,7 +16,7 @@ def getSmokingData():
     '''
     Read Data from CVS
     '''
-    file = helpers.getfileName("data/smoking.csv")
+    file = getfileName("data/smoking.csv")
     with open(file,'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
